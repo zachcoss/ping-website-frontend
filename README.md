@@ -17,3 +17,6 @@ npm run build
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Hosted App
+Accessible [here](https://ping-website-frontend-92289.herokuapp.com/).
