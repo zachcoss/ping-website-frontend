@@ -4,6 +4,8 @@
     <hr />
     <PingFilter />
     <PingTable />
+    <PingReset />
+    <PingResetConfirmation />
   </div>
 </template>
 
@@ -11,6 +13,8 @@
 import PingInput from "./PingInput";
 import PingFilter from "./PingFilter";
 import PingTable from './PingTable'
+import PingReset from './PingReset'
+import PingResetConfirmation from "./PingResetConfirmation"
 
 export default {
   name: "Ping",
@@ -18,6 +22,8 @@ export default {
     PingInput,
     PingFilter,
     PingTable,
+    PingReset,
+    PingResetConfirmation
   },
 };
 </script>

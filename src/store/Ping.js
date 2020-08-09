@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import _ from 'lodash'
-import PingService from '../network/Ping'
 
 import { getField, updateField } from 'vuex-map-fields';
 
 const state = () => ({
     apiUrl: process.env.VUE_APP_API_URL,
     data: [],
-    filter: ''
+    filter: '',
+    modal: false,
 })
 
 const getters = {
@@ -33,7 +33,7 @@ const actions = {
             const request = await Vue.$axios.get(requestUrl)
             return request
         } catch(err) {
-            return err
+            return Promise.reject(err)
         }
     },
     async getPingData({ commit, state, rootState }, payload) {
@@ -43,18 +43,18 @@ const actions = {
             commit('replacePingData', request.data)
             return request
         } catch(err) {
-            return err
+            return Promise.reject(err)
         }
     },
     async storePingData({ commit, state, rootState }, payload) {
         try {
             const requestUrl = `${state.apiUrl}/ping-data`
-            const requestBody = await PingService.pingAndGetFavicon(payload)
+            const requestBody = { url: payload }
             const request = await Vue.$axios.post(requestUrl, requestBody)
             commit('addPingData', request.data)
             return request
         } catch(err) {
-            return err
+            return Promise.reject(err)
         }
     },
     async resetPingData({ commit, state, rootState }, payload) {
@@ -64,7 +64,7 @@ const actions = {
             commit('removePingData')
             return request
         } catch(err) {
-            return err
+            return Promise.reject(err)
         }
     },
 }
@@ -79,6 +79,12 @@ const mutations = {
     },
     removePingData(state, payload) {
         state.data = []
+    },
+    showModal(state, payload) {
+        state.modal = true
+    },
+    hideModal(state, payload) {
+        state.modal = false
     },
 }
 

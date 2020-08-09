@@ -2,13 +2,13 @@
     <table class="table is-narrow is-fullwidth is-hoverable">
         <tbody>
             <tr v-bind:class="{ 'table-row-inactive': !pingDataActive }">
-                <th class="icon-column">Icon</th>
+                <th>Icon</th>
                 <th>Site</th>
                 <th>Ping</th>
             </tr>
             <tr v-for="(ping) in pingData()" :key="ping._id">
-                <td class="icon-column">
-                    <img class="icon-column-img" src="/favicon.ico">
+                <td>
+                    <img class="icon-column-img" :src="ping.iconPath" @error="replaceMissingImage">
                 </td>
                 <td>{{ ping.url }}</td>
                 <td>{{ ping.duration }}</td>
@@ -23,14 +23,16 @@ export default {
     name: 'PingTable',
     computed: {
         ...mapGetters('ping', ['pingData','pingDataActive'])
+    },
+    methods: {
+        replaceMissingImage(e) {
+            e.target.src = '/missing.png'
+        }
     }
 }
 </script>
 
 <style lang="scss">
-.icon-column {
-    width: 25px;
-}
 .icon-column-img {
     height: 25px;
     width: 25px;
